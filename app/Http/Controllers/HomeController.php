@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $gasolina = HTTP::get('https://api.datos.gob.mx/v1/precio.gasolina.publico');
+        $gasArray = $gasolina->json();
+       // dd($gasArray);
+        return view('home',compact('gasArray'));
     }
 }
